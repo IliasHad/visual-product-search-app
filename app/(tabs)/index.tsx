@@ -1,74 +1,153 @@
-import { Image, StyleSheet, Platform } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import ShopSearchBar from "@/components/SearchBar";
+import { useProducts } from "@/hooks/useProducts";
+import {
+  Image,
+  ScrollView,
+  RefreshControl,
+  ActivityIndicator,
+  View
+} from "react-native";
+import { useEffect, useState } from "react";
+import { Card } from "@/components/Card";
+import { Text } from "@/components/Text";
+import { searchByImage } from "@/lib/search";
+import { ProductsList } from "@/components/ProductsList";
+import { Button } from "@/components/Button";
+import theme from "@/theme";
+import { useColorScheme } from "react-native";
+import { getProductById, searchProductsByText } from "@/lib/shopify";
+import { ProductCard } from "@/components/ProductCard";
+import { Product } from "@/types/shopify";
 
 export default function HomeScreen() {
+  const { products, loading, fetchProducts } = useProducts();
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [searching, setSearching] = useState(false);
+  const [searchResults, setSearchResults] = useState<string[] | null>(null);
+  const [searchProducts, setSearchProducts] = useState<Product[] | null>(null);
+  const colorSchema = useColorScheme();
+
+  const handleImageSearch = async () => {
+    if (selectedImage) {
+      const results = await searchByImage(selectedImage);
+      setSearching(false);
+      setSearchResults(results);
+    }
+  };
+  useEffect(() => {
+    if (selectedImage) {
+      handleImageSearch();
+    }
+  }, [selectedImage]);
+  useEffect(() => {
+    const fetchProductsById = async (ids: string[]) => {
+      const products = await Promise.all(
+        ids.map(async (id) => await getProductById(id))
+      );
+
+      setSearchProducts(products);
+    };
+    if (searchResults) {
+      const productIds = searchResults.map((productId) => productId);
+      fetchProductsById(productIds);
+    }
+  }, [searchResults]);
+  const handleTextSearch = async (query: string) => {
+    setSearching(true);
+    const results = await searchProductsByText(query);
+    setSearchProducts(results);
+    setSearching(false);
+  };
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+    <SafeAreaProvider>
+      <SafeAreaView
+        style={{
+          backgroundColor: colorSchema === "dark" ? "black" : "white",
+          flex: 1,
+        }}
+      >
+        <ShopSearchBar
+          onSearch={handleTextSearch}
+          setSelectedImage={setSelectedImage}
+          setSearching={setSearching}
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={loading} onRefresh={fetchProducts} />
+          }
+        >
+          {selectedImage && (
+            <Card marginTop="m">
+              <Image
+                source={{ uri: `data:image/png;base64,${selectedImage}` }}
+                style={{ width: "auto", height: 250, objectFit: "contain" }}
+              />
+            </Card>
+          )}
+          {searching && (
+            <Card marginTop="m">
+              <Text variant="header">Searching...</Text>
+              <Text variant="body" marginTop="s">
+                Please wait while we search for similar products
+              </Text>
+              <Card marginTop="s">
+                <ActivityIndicator size="large" color={theme.colors.primary} />
+              </Card>
+            </Card>
+          )}
+          {!searching && searchProducts && searchProducts.length > 0 && (
+            <Card marginTop="m">
+              <Card marginTop="s">
+                <Text variant="header">Results</Text>
+                <Text variant="body" marginTop="s">
+                  Here are some products that match your image
+                </Text>
+              </Card>
+              <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+                {searchProducts.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </View>
+              <Card>
+                <Button
+                  tone="primary"
+                  label="Clear"
+                  onPress={() => {
+                    setSelectedImage(null);
+                    setSearchResults(null);
+                    setSearchProducts(null);
+                  }}
+                />
+              </Card>
+            </Card>
+          )}
+          {!searching && searchProducts && searchProducts.length === 0 && (
+            <Card marginTop="m">
+              <Card marginTop="s">
+                <Text variant="header">No Results</Text>
+                <Text variant="body" marginTop="s">
+                  Please try with another image :(
+                </Text>
+              </Card>
+              <Card>
+                <Button
+                  tone="primary"
+                  label="Clear"
+                  onPress={() => {
+                    setSelectedImage(null);
+                    setSearchResults(null);
+                    setSearchProducts(null);
+                  }}
+                />
+              </Card>
+            </Card>
+          )}
+          {!searching && !searchProducts && (
+            <ProductsList products={products} />
+          )}
+        </ScrollView>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
