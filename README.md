@@ -1,6 +1,30 @@
-# Welcome to your Expo app 👋
+# React Native: Visual Product Search API using Shopify API
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Overview
+
+
+
+## Features
+
+- 📸 Visual Product Search
+- 🚀 Instant Product Matching
+- 📱 Cross-Platform Mobile Experience (iOS & Android)
+
+## Tech Stack
+
+- **Frontend**: React Native
+- **Image Recognition**: Google Cloud Platform Vision API
+- **Search**: Algolia Search API
+- **Backend**: Remix.js
+
+## Prerequisites
+
+- Node.js (v16+ recommended)
+- npm or Yarn
+- React Native CLI
+- Google Cloud Platform Account
+- Algolia Account
+- Shopify Partner Account or a Shopify development store
 
 ## Get started
 
@@ -25,26 +49,64 @@ In the output, you'll find options to open the app in a
 
 You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-## Get a fresh project
 
-When you're ready, run:
+3. Set up environment variables:
+Create a `.env` file in the project root with the following:
 
-```bash
-npm run reset-project
+```
+EXPO_PUBLIC_APP_HOST=""
+EXPO_PUBLIC_SHOPIFY_API_SECRET=""
+EXPO_PUBLIC_SHOPIFY_DOMAIN="example.myshopify.com"
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Configuration
 
-## Learn more
+### Google Cloud Platform Vision API
+1. Create a GCP project
+2. Enable Vision API
+3. Generate and download service account credentials
 
-To learn more about developing your project with Expo, look at the following resources:
+### Algolia
+1. Create an Algolia account
+2. Set up your product index
+3. Configure search settings
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### Shopify Storefront API
+1. Create a Shopify development store
+2. Set up Shopify Storefront API
+3. Get your API key
 
-## Join the community
+## Running the App
 
-Join our community of developers creating universal apps.
+### iOS
+```bash
+npm run ios
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### Android
+```bash
+npm run android
+```
+## Workflow
+
+1. User uploads a product photo
+2. GCP Vision API analyzes the image
+3. Extracted tags/labels sent to Algolia
+4. Algolia returns matching products
+5. Results displayed to the user
+
+## Future Roadmap
+
+- [ ] Advanced ML-powered visual search
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
