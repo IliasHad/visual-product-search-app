@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "Shop Unofficial App",
+    "name": "shopifyrestyledemo",
     "slug": "shopify-app-demo",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/shop-app.jpg",
+    "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { TextInput, useColorScheme } from "react-native";
 import {
   launchImageLibrary,
@@ -9,20 +8,19 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { Box } from "./Container";
 import theme, { darkTheme } from "@/theme";
 
-const ShopSearchBar = ({
-  onSearch,
+export const ShopSearchBar = ({
   placeholder = "Search products",
   setSelectedImage,
-  setSearching,
+  searchQuery,
+  setSearchQuery,
 }: {
-  onSearch?: (query: string) => void;
   onFilterPress?: () => void;
   placeholder?: string;
-  setSelectedImage: (image: string | null) => void;
-  setSearching: (searching: boolean) => void;
+  setSelectedImage: (image: string) => void;
+  searchQuery: string | null;
+  setSearchQuery: (query: string | null) => void;
 }) => {
   const colorSchema = useColorScheme();
-  const [searchQuery, setSearchQuery] = useState("");
   const openImagePicker = () => {
     const options: ImageLibraryOptions = {
       mediaType: "photo",
@@ -40,18 +38,18 @@ const ShopSearchBar = ({
         let imageUri = response.assets[0].base64;
         if (imageUri) {
           setSelectedImage(imageUri);
-          setSearching(true);
         }
       }
     });
   };
 
-  const handleSearch = () => {
-    if (onSearch) {
-      onSearch(searchQuery);
+  const handleTextChange = (text: string) => {
+    if (text === "") {
+      setSearchQuery(null);
+      return;
     }
+    setSearchQuery(text);
   };
-
   return (
     <Box
       flexDirection="row"
@@ -84,9 +82,9 @@ const ShopSearchBar = ({
               ? darkTheme.colors.placeholderText
               : theme.colors.placeholderText
           }
-          value={searchQuery}
-          onChangeText={setSearchQuery}
-          onSubmitEditing={handleSearch}
+          value={searchQuery || ""}
+          onChangeText={handleTextChange}
+          onSubmitEditing={() => setSearchQuery(searchQuery)}
           clearButtonMode="while-editing"
           autoCapitalize="none"
           autoCorrect={false}
@@ -114,5 +112,3 @@ const ShopSearchBar = ({
     </Box>
   );
 };
-
-export default ShopSearchBar;

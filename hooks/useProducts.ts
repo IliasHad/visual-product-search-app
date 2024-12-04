@@ -1,23 +1,17 @@
-import { fetchAllProducts, } from "@/lib/shopify";
-import { useEffect, useState } from "react";
-import { Product } from "@/types/shopify";
+import { productsQueryKey } from "@/constants/Query";
+import { fetchProducts } from "@/services/shopify";
+import { useQuery } from "@tanstack/react-query";
 
 export const useProducts = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(false);
-  const fetchProducts = async () => {
-    setLoading(true);
-    try {
-      const products = await fetchAllProducts();
-      setProducts(products);
-    } finally {
-      setLoading(false);
-    }
+  const { isPending, error, data, refetch, isRefetching } = useQuery({
+    queryKey: productsQueryKey,
+    queryFn: fetchProducts,
+  });
+
+  return {
+    products: data || [],
+    loading: isPending || isRefetching,
+    refetch,
+    error,
   };
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  return { products, fetchProducts, loading };
 };

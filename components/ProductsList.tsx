@@ -1,24 +1,43 @@
-import { View } from "react-native";
 import { Card } from "./Card";
 import { Text } from "./Text";
 import { ProductCard } from "./ProductCard";
-import { Product } from "@/types/shopify";
+import { useProducts } from "@/hooks/useProducts";
+import { ScrollView, RefreshControl } from "react-native";
+import { ActivityIndicator } from "react-native";
+import theme from "@/theme";
+import { Grid } from "./Grid";
 
-export const ProductsList = ({ products }: { products: Product[] }) => {
+export const ProductsList = () => {
+  const { products, loading, refetch, error } = useProducts();
+
   return (
-    <>
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={loading} onRefresh={refetch} />
+      }
+    >
       <Card marginTop="m">
         <Text variant="header">Featured Products</Text>
         <Text variant="body" marginTop="s">
           Our top picks for you
         </Text>
       </Card>
-
-      <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+      {error && (
+        <Card marginTop="m">
+          <Text variant="header">Something went wrong</Text>
+          <Text variant="body" marginTop="s">
+            {error.message}
+          </Text>
+        </Card>
+      )}
+      {loading && (
+        <ActivityIndicator size="large" color={theme.colors.primary} />
+      )}
+      <Grid>
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
-      </View>
-    </>
+      </Grid>
+    </ScrollView>
   );
 };
