@@ -2,19 +2,49 @@
 
 ## Overview
 
+![visual-search](https://github.com/user-attachments/assets/f8477560-2a6f-4807-b139-19ea81c28d07)
+
+
 
 | License | Mobile Technology    | Image Labeling | eCommerce CMS | Search API |
 | :---:   | :---: |  :---: |  :---: |   :---: |
  | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  | ![React Native](https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)  | [![Google Cloud](https://img.shields.io/badge/Google%20Cloud-%234285F4.svg?logo=google-cloud&logoColor=white)](#) | [![Shopify](https://img.shields.io/badge/Shopify-7AB55C?logo=shopify&logoColor=fff)](#) | Algolia Search API
 
 
-
-
-
-
 | Browsing | Image Searching    | Displaying Results    |
 | :---:   | :---: | :---: |
  |![IMG_7232](https://github.com/user-attachments/assets/73118f63-ec74-44af-8ff0-dc8edbe216dd) | ![IMG_7234](https://github.com/user-attachments/assets/9ac14cdb-9b64-40a2-a006-d952a29e3935) |   ![IMG_7233](https://github.com/user-attachments/assets/179fa312-5293-4c74-9a49-c791efe3d34a)|
+
+### Developer Note: Keeping it Simple
+
+While building this demo, I intentionally simplified many aspects that would be crucial for a production system. Here's why:
+
+The main goal was to demonstrate how to:
+
+- Connect Google Cloud Vision API with Shopify product search
+- Process product images to enable visual search
+- Create a basic mobile interface for image uploads
+
+I deliberately omitted production concerns like error handling, security, and scalability because:
+
+1. This is a learning demo focused on the core visual search workflow
+2. Adding production-grade features would obscure the main technical concepts
+3. Each production requirement (auth, caching, monitoring etc.) deserves its own deep dive
+
+Think of this implementation as a "proof of concept" that shows:
+
+- The basic architecture works
+- Visual search can enhance product discovery
+- The core APIs integrate successfully
+
+For anyone looking to build on this demo, you'd want to address production concerns based on your specific needs - like authentication, error handling, and performance optimization. But those additions shouldn't overshadow understanding the core visual search mechanics demonstrated here.
+
+The goal was to keep the code approachable and focused on demonstrating value, rather than building a production-ready system. This lets developers understand the core concepts first, then layer in production requirements as needed.
+
+
+### Demo Video
+
+https://github.com/user-attachments/assets/28e109bb-14d1-40e8-a1ec-1b8415c54a19
 
 
 ## Features
