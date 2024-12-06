@@ -1,5 +1,11 @@
 import { createStorefrontApiClient } from "@shopify/storefront-api-client";
-import { ProductEdges, ImageEdges } from "@/types/shopify";
+import {
+  ProductEdges,
+  ImageEdges,
+  Product,
+  Image,
+  ProductWithImageEdges,
+} from "@/types/shopify";
 if (
   !process.env.EXPO_PUBLIC_SHOPIFY_DOMAIN ||
   !process.env.EXPO_PUBLIC_SHOPIFY_API_SECRET
@@ -17,7 +23,7 @@ export const flattenProductEdges = (edges: ProductEdges) => {
   return edges.map((edge) => edge.node);
 };
 
-export const flattenImagesEdges = (edges: ImageEdges) => {
+export const flattenImagesEdges = (edges: ImageEdges): Image[] => {
   return edges.map((edge) => edge.node);
 };
 export const GET_ALL_PRODUCTS = `
@@ -169,3 +175,19 @@ query searchProducts($query: String!, $first: Int) {
     }
   }
 }`;
+
+export const fetchProducts = async (): Promise<Product[]> => {
+  const { data, errors } = await ShopifyClient.request(GET_ALL_PRODUCTS);
+  if (errors) {
+    throw new Error("Failed to fetch products");
+  }
+  return flattenProductEdges(data.products.edges).map((product) => {
+    if ("images" in product) {
+      return {
+        ...product,
+        images: flattenImagesEdges(product.images.edges),
+      };
+    }
+    return product;
+  });
+};

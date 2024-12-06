@@ -6,7 +6,7 @@ import { Product } from "../types/shopify";
 import { Button } from "./Button";
 import { Grid } from "./Grid";
 
-export const SearchImagesResults = ({
+export const SearchImageResults = ({
   searchProducts,
   clearResults,
 }: {

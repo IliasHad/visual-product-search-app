@@ -8,12 +8,12 @@ import theme from "@/theme";
 import { Grid } from "./Grid";
 
 export const ProductsList = () => {
-  const { products, loading, fetchProducts, error } = useProducts();
+  const { products, loading, refetch, error } = useProducts();
 
   return (
     <ScrollView
       refreshControl={
-        <RefreshControl refreshing={loading} onRefresh={fetchProducts} />
+        <RefreshControl refreshing={loading} onRefresh={refetch} />
       }
     >
       <Card marginTop="m">

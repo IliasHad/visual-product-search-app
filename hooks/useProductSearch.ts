@@ -3,7 +3,7 @@ import {
   ShopifyClient,
   flattenImagesEdges,
   flattenProductEdges,
-} from "@/lib/shopify";
+} from "@/services/shopify";
 import { useQuery } from "@tanstack/react-query";
 
 export const useProductSearch = ({
@@ -41,7 +41,7 @@ export const useProductSearch = ({
   return {
     searchResults,
     loading: isPending || isRefetching,
-    fetchProducts: refetch,
+    refetch,
     error,
   };
 };

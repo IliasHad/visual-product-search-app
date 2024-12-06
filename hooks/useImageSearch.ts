@@ -1,6 +1,6 @@
 import { useReducer, useCallback } from "react";
-import { getProductById } from "@/lib/shopify";
-import { searchByImage } from "@/lib/search";
+import { getProductById } from "@/services/shopify";
+import { searchByImage } from "@/services/search";
 import { Product } from "@/types/shopify";
 
 interface State {
@@ -22,6 +22,7 @@ const reducer = (state: State, action: Action) => {
       return {
         ...state,
         searchProducts: action.payload.products,
+        searching: false,
       };
     case "SET_IMAGE":
       return {

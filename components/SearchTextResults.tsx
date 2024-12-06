@@ -6,14 +6,20 @@ import { Grid } from "./Grid";
 
 import { ActivityIndicator, ScrollView } from "react-native";
 import theme from "@/theme";
-export const ProductTextSearch = ({ searchQuery }: { searchQuery: string }) => {
+export const SearchTextResults = ({
+  searchQuery,
+}: {
+  searchQuery: string | null;
+}) => {
   const { searchResults, loading, error } = useProductSearch({
     query: searchQuery,
   });
 
   return (
     <Card marginTop="m">
-      <Text variant="header" paddingBottom="m">Search Results</Text>
+      <Text variant="header" paddingBottom="m">
+        Search Results
+      </Text>
       {loading && (
         <Card marginTop="s">
           <Text variant="body" marginTop="s" marginBottom="s">

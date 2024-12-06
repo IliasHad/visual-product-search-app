@@ -1,36 +1,36 @@
-import { SearchImagesResults } from "@/components/ProductImageSearch";
+import { SearchImageResults } from "@/components/SearchImageResults";
 import { NotFound } from "@/components/NotFound";
 import { LoadingResults } from "@/components/LoadingResults";
-import { ProductTextSearch } from "@/components/ProductTextSearch";
+import { SearchTextResults } from "@/components/SearchTextResults";
+import { type HomeViewState } from "@/hooks/useHomeViewState";
 
 export const SearchResults = ({
-  searching,
   searchQuery,
   searchProducts,
   clearResults,
-  selectedImage,
+  viewState,
 }: {
-  searching: boolean;
   searchQuery: string | null;
   searchProducts: any;
   clearResults: () => void;
-  selectedImage: string | null;
-}) => {
-  return (
-    <>
-      {searching && <LoadingResults />}
-      {!searching && searchQuery && !selectedImage && (
-        <ProductTextSearch searchQuery={searchQuery} />
-      )}
-      {!searching && searchProducts && searchProducts.length > 0 && (
-        <SearchImagesResults
-          searchProducts={searchProducts}
-          clearResults={clearResults}
-        />
-      )}
-      {!searching && searchProducts && searchProducts.length === 0 && (
-        <NotFound clearResults={clearResults} />
-      )}
-    </>
-  );
+  viewState: HomeViewState;
+  }) => {
+  if (viewState === "searching") {
+    return <LoadingResults />;
+  }
+  if (viewState === "textSearch") {
+    return <SearchTextResults searchQuery={searchQuery} />;
+  }
+  if (viewState === "imageSearch") {
+    return (
+      <SearchImageResults
+        searchProducts={searchProducts}
+        clearResults={clearResults}
+      />
+    );
+  }
+  if (viewState === "noResults") {
+    return <NotFound clearResults={clearResults} />;
+  }
+  return null;
 };
