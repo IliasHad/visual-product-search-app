@@ -16,74 +16,6 @@
 | :---:   | :---: | :---: |
  |![IMG_7232](https://github.com/user-attachments/assets/73118f63-ec74-44af-8ff0-dc8edbe216dd) | ![IMG_7234](https://github.com/user-attachments/assets/9ac14cdb-9b64-40a2-a006-d952a29e3935) |   ![IMG_7233](https://github.com/user-attachments/assets/179fa312-5293-4c74-9a49-c791efe3d34a)|
 
-## Directory Structure
-```
-shopify-search-app/
-│
-├── app/                    # App configuration and entry points
-│   ├── _layout.tsx         # Navigation layout
-│   └── (tabs)/             # Grouped tab navigation
-│       ├── _layout.tsx     # Navigation layout
-│       └── index.tsx       # Main Entry view
-│   └──  +not-found.tsx     # Not found view
-
-├── assets/                 # Static assets
-│   ├── images/
-│   ├── fonts/
-│
-├── components/             # Reusable UI components
-│   │   ├── Button.tsx
-│   │   ├── Container.tsx
-│   │   ├── Text.tsx
-│   │   ├── Card.tsx
-│   │   ├── QueryClient.tsx
-│   │   ├── ProductList.tsx
-│   │   ├── ProductCard.tsx
-│   │   ├── SearchBar.tsx
-│   │   ├── SearchResults.tsx
-│   │   ├── SelectedImagePreview.tsx
-│   │   ├── NotFound.tsx
-│   │   ├── Grid.tsx
-│   │   ├── ExternalLink.tsx
-│   │   ├── HapticTab.tsx
-│   │   ├── LoadingResults.tsx
-│   │   └── SearchImageResults.tsx
-│
-├── constants/              # App-wide constants
-│   ├── Colors.ts
-│   ├── Query.ts
-│
-├── hooks/                  # Custom React hooks
-│   ├── useHomeViewState.ts
-│   ├── useProducts.ts
-│   ├── useImageSearch.ts
-│   └── useProductSearch.ts
-│
-├── navigation/             # Navigation configuration
-│   ├── AppNavigator.tsx
-│   └── types.ts
-│
-├── screens/                # Full screen components
-│   ├── HomeScreen.tsx
-│   ├── LoginScreen.tsx
-│   └── ProfileScreen.tsx
-│
-├── services/               # API and external service calls
-│   ├── search.ts
-│   ├── shopify.ts
-│   └── StorageService.ts
-│
-│
-├── types/                  # TypeScript type definitions
-│   └──  shopify.ts
-│
-│
-├── .env                    # Environment variables
-├── app.json                # Expo app configuration
-├── package.json            # Project dependencies and scripts
-├── tsconfig.json           # TypeScript configuration
-└── README.md               # Project documentation
-```
 
 ## Features
 
@@ -175,6 +107,74 @@ npm run android
 3. Extracted tags/labels sent to Algolia
 4. Algolia returns matching products
 5. Results displayed to the user
+## Directory Structure
+```
+shopify-search-app/
+│
+├── app/                    # App configuration and entry points
+│   ├── _layout.tsx         # Navigation layout
+│   └── (tabs)/             # Grouped tab navigation
+│       ├── _layout.tsx     # Navigation layout
+│       └── index.tsx       # Main Entry view
+│   └──  +not-found.tsx     # Not found view
+
+├── assets/                 # Static assets
+│   ├── images/
+│   ├── fonts/
+│
+├── components/             # Reusable UI components
+│   │   ├── Button.tsx
+│   │   ├── Container.tsx
+│   │   ├── Text.tsx
+│   │   ├── Card.tsx
+│   │   ├── QueryClient.tsx
+│   │   ├── ProductList.tsx
+│   │   ├── ProductCard.tsx
+│   │   ├── SearchBar.tsx
+│   │   ├── SearchResults.tsx
+│   │   ├── SelectedImagePreview.tsx
+│   │   ├── NotFound.tsx
+│   │   ├── Grid.tsx
+│   │   ├── ExternalLink.tsx
+│   │   ├── HapticTab.tsx
+│   │   ├── LoadingResults.tsx
+│   │   └── SearchImageResults.tsx
+│
+├── constants/              # App-wide constants
+│   ├── Colors.ts
+│   ├── Query.ts
+│
+├── hooks/                  # Custom React hooks
+│   ├── useHomeViewState.ts
+│   ├── useProducts.ts
+│   ├── useImageSearch.ts
+│   └── useProductSearch.ts
+│
+├── navigation/             # Navigation configuration
+│   ├── AppNavigator.tsx
+│   └── types.ts
+│
+├── screens/                # Full screen components
+│   ├── HomeScreen.tsx
+│   ├── LoginScreen.tsx
+│   └── ProfileScreen.tsx
+│
+├── services/               # API and external service calls
+│   ├── search.ts
+│   ├── shopify.ts
+│   └── StorageService.ts
+│
+│
+├── types/                  # TypeScript type definitions
+│   └──  shopify.ts
+│
+│
+├── .env                    # Environment variables
+├── app.json                # Expo app configuration
+├── package.json            # Project dependencies and scripts
+├── tsconfig.json           # TypeScript configuration
+└── README.md               # Project documentation
+```
 
 ## Future Roadmap
 
