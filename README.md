@@ -1,6 +1,25 @@
 # React Native: Visual Product Search API using Shopify API
 
+
+
+| License | Mobile Technology    | Image Labeling | eCommerce CMS | Search API |
+| :---:   | :---: |  :---: |  :---: |   :---: |
+ | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  | ![React Native](https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)  | [![Google Cloud](https://img.shields.io/badge/Google%20Cloud-%234285F4.svg?logo=google-cloud&logoColor=white)](#) | [![Shopify](https://img.shields.io/badge/Shopify-7AB55C?logo=shopify&logoColor=fff)](#) | Algolia Search API
+
+
+
+
+
+
+| Browsing | Image Searching    | Displaying Results    |
+| :---:   | :---: | :---: |
+ |![IMG_7232](https://github.com/user-attachments/assets/73118f63-ec74-44af-8ff0-dc8edbe216dd) | ![IMG_7234](https://github.com/user-attachments/assets/9ac14cdb-9b64-40a2-a006-d952a29e3935) |   ![IMG_7233](https://github.com/user-attachments/assets/179fa312-5293-4c74-9a49-c791efe3d34a)|
+
 ## Overview
+
+
+
+
 
 
 
