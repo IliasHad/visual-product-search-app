@@ -21,7 +21,7 @@
     "@shopify/restyle": "^2.4.4",
     "@shopify/storefront-api-client": "^1.0.3",
     "@tanstack/react-query": "^5.62.2",
-    "algoliasearch": "^5.15.0",
+    "algoliasearch": "^5.17.1",
     "expo": "~52.0.11",
     "expo-blur": "~14.0.1",
     "expo-constants": "~17.0.3",
